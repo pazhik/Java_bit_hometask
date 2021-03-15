@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="shapes.RectangleJunitTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-03-15T14:39:54" hostname="DESKTOP-PDGB573" time="0.0">
+  <properties/>
+  <testcase name="area" classname="shapes.RectangleJunitTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
