@@ -12,7 +12,7 @@ import ru.sbt.mipt.oop.smarthomereader.SmartHomeReader;
 import static org.testng.AssertJUnit.assertFalse;
 import static org.testng.AssertJUnit.assertTrue;
 
-public class DoorEventsHandlerTest {
+public class DoorUtilsHandlerTest {
     private static SmartHome smartHome;
     private static SensorEvent event1;
     private static SensorEvent event2;
@@ -32,7 +32,7 @@ public class DoorEventsHandlerTest {
 
     @Test
     public void doorEventHandlerTestClose() {
-        new DoorEventsHandler(event1, smartHome);
+        new DoorEventsHandler(event1, smartHome).handle();
         for (Room room : smartHome.getRooms()) {
             for (Door door : room.getDoors()) {
                 if (door.getId().equals(event1.getObjectId())) {
@@ -44,7 +44,7 @@ public class DoorEventsHandlerTest {
 
     @Test
     public void doorEventHandlerTestOpen() {
-        new DoorEventsHandler(event2, smartHome);
+        new DoorEventsHandler(event2, smartHome).handle();
         for (Room room : smartHome.getRooms()) {
             for (Door door : room.getDoors()) {
                 if (door.getId().equals(event2.getObjectId())) {

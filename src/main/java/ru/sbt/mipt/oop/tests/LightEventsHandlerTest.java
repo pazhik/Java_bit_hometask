@@ -32,7 +32,7 @@ public class LightEventsHandlerTest {
 
     @Test
     public void lightEventHandlerTestOn() {
-        new LightEventsHandler(event1, smartHome);
+        new LightEventsHandler(event1, smartHome).handle();
         for (Room room : smartHome.getRooms()) {
             for (Light light : room.getLights()) {
                 if (light.getId().equals(event1.getObjectId())) {
@@ -44,7 +44,7 @@ public class LightEventsHandlerTest {
 
     @Test
     public void doorEventHandlerTestOff() {
-        new LightEventsHandler(event2, smartHome);
+        new LightEventsHandler(event2, smartHome).handle();
         for (Room room : smartHome.getRooms()) {
             for (Light light : room.getLights()) {
                 if (light.getId().equals(event2.getObjectId())) {

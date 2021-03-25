@@ -35,7 +35,7 @@ public class HallDoorEventUtilsHandlerTest {
 
     @Test
     public void hallDoorEventHandlerTestCloseHallDoor() {
-        new HallDoorEventHandler(hall, smartHome);
+        new HallDoorEventHandler(hall, smartHome).handle();
         for (Room homeRoom : smartHome.getRooms()) {
             for (Light light : homeRoom.getLights()) {
                 assertFalse(light.isOn());

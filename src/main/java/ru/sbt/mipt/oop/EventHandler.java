@@ -16,9 +16,9 @@ public class EventHandler {
         while (event != null) {
             System.out.println("Got event: " + event);
 
-            new LightEventsHandler(event, smartHome);
-            new DoorEventsHandler(event, smartHome);
-            new AlarmEventHandler(event, smartHome);
+            new LightEventsHandler(event, smartHome).handle();
+            new DoorEventsHandler(event, smartHome).handle();
+            new AlarmEventHandler(event, smartHome).handle();
 
             event = eventCreator.getNextSensorEvent();
         }
