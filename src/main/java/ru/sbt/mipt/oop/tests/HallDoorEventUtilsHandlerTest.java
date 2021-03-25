@@ -3,13 +3,18 @@ package ru.sbt.mipt.oop.tests;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.sbt.mipt.oop.*;
+import ru.sbt.mipt.oop.events.HallDoorEventHandler;
+import ru.sbt.mipt.oop.events.SensorEvent;
+import ru.sbt.mipt.oop.events.SensorEventType;
+import ru.sbt.mipt.oop.smarthomereader.JsonSmartHomeReader;
+import ru.sbt.mipt.oop.smarthomereader.SmartHomeReader;
 
 import java.util.Arrays;
 
 import static org.testng.AssertJUnit.assertFalse;
 import static org.testng.AssertJUnit.assertTrue;
 
-public class HallDoorEventHandlerTest {
+public class HallDoorEventUtilsHandlerTest {
 
     private static SmartHome smartHome;
     private static SensorEvent event1;

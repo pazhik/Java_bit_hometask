@@ -1,14 +1,17 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.events;
 
+import ru.sbt.mipt.oop.Action;
+import ru.sbt.mipt.oop.Light;
+import ru.sbt.mipt.oop.SmartHome;
 import ru.sbt.mipt.oop.commands.CommandFactory;
 import ru.sbt.mipt.oop.commands.CommandType;
 import ru.sbt.mipt.oop.commands.SensorCommand;
 import ru.sbt.mipt.oop.commands.SensorCommandFactory;
 
-public class HallDoorEvent {
+public class HallDoorEventUtils {
     private final SmartHome smartHome;
 
-    public HallDoorEvent(SmartHome smartHome) {
+    public HallDoorEventUtils(SmartHome smartHome) {
         this.smartHome = smartHome;
     }
 

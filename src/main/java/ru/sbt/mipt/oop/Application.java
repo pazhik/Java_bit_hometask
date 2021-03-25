@@ -1,5 +1,8 @@
 package ru.sbt.mipt.oop;
 
+import ru.sbt.mipt.oop.smarthomereader.JsonSmartHomeReader;
+import ru.sbt.mipt.oop.smarthomereader.SmartHomeReader;
+
 import java.io.IOException;
 
 public class Application {

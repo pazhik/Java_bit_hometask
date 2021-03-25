@@ -3,8 +3,11 @@ package ru.sbt.mipt.oop.tests;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.sbt.mipt.oop.*;
-
-import java.util.Arrays;
+import ru.sbt.mipt.oop.events.LightEventsHandler;
+import ru.sbt.mipt.oop.events.SensorEvent;
+import ru.sbt.mipt.oop.events.SensorEventType;
+import ru.sbt.mipt.oop.smarthomereader.JsonSmartHomeReader;
+import ru.sbt.mipt.oop.smarthomereader.SmartHomeReader;
 
 import static org.testng.AssertJUnit.assertFalse;
 import static org.testng.AssertJUnit.assertTrue;

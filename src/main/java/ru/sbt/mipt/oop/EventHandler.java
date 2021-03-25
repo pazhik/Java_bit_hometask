@@ -1,5 +1,7 @@
 package ru.sbt.mipt.oop;
 
+import ru.sbt.mipt.oop.events.*;
+
 public class EventHandler {
 
     protected final SmartHome smartHome;
@@ -16,6 +18,7 @@ public class EventHandler {
 
             new LightEventsHandler(event, smartHome);
             new DoorEventsHandler(event, smartHome);
+            new AlarmEventHandler(event, smartHome);
 
             event = eventCreator.getNextSensorEvent();
         }
