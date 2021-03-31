@@ -1,6 +1,7 @@
 package ru.sbt.mipt.oop;
 
 import ru.sbt.mipt.oop.events.*;
+import ru.sbt.mipt.oop.handlers.Handler;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class EventHandler {
     }
 
     public void eventHandling() {
-        SensorEvent event = eventCreator.getNextSensorEvent();
+        Event event = eventCreator.getNextSensorEvent();
         while (event != null) {
             System.out.println("Got event: " + event);
             for (Handler handler : handlerList) {

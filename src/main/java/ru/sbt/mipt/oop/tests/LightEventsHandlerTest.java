@@ -3,9 +3,9 @@ package ru.sbt.mipt.oop.tests;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.sbt.mipt.oop.*;
-import ru.sbt.mipt.oop.events.LightEventsHandler;
+import ru.sbt.mipt.oop.handlers.LightEventsHandler;
 import ru.sbt.mipt.oop.events.SensorEvent;
-import ru.sbt.mipt.oop.events.SensorEventType;
+import ru.sbt.mipt.oop.events.EventType;
 import ru.sbt.mipt.oop.smarthomereader.JsonSmartHomeReader;
 import ru.sbt.mipt.oop.smarthomereader.SmartHomeReader;
 
@@ -23,10 +23,10 @@ public class LightEventsHandlerTest {
         SmartHomeReader homeReader = new JsonSmartHomeReader( "smart-home-1.js");
         // считываем состояние дома из файла
         smartHome = homeReader.readSmartHomeData();
-        SensorEventType sensorEventTypeOn = SensorEventType.values()[0];
-        SensorEventType sensorEventTypeOff = SensorEventType.values()[1];
-        event1 = new SensorEvent(sensorEventTypeOn, "5");
-        event2 = new SensorEvent(sensorEventTypeOff, "2");
+        EventType eventTypeOn = EventType.values()[0];
+        EventType eventTypeOff = EventType.values()[1];
+        event1 = new SensorEvent(eventTypeOn, "5");
+        event2 = new SensorEvent(eventTypeOff, "2");
 
     }
 

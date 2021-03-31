@@ -3,11 +3,9 @@ package ru.sbt.mipt.oop.tests;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.sbt.mipt.oop.*;
-import ru.sbt.mipt.oop.events.HallDoorEventHandler;
+import ru.sbt.mipt.oop.handlers.HallDoorEventHandler;
 import ru.sbt.mipt.oop.events.SensorEvent;
-import ru.sbt.mipt.oop.events.SensorEventType;
-import ru.sbt.mipt.oop.smarthomereader.JsonSmartHomeReader;
-import ru.sbt.mipt.oop.smarthomereader.SmartHomeReader;
+import ru.sbt.mipt.oop.events.EventType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,9 +34,9 @@ public class HallDoorEventUtilsHandlerTest {
         Room hall = new Room(Arrays.asList(new Light("7", false), new Light("8", false), new Light("9", false)),
                 Arrays.asList(new Door(true, "4")),
                 "hall");
-        smartHome = new SmartHome(Arrays.asList(kitchen, bathroom, bedroom, hall));
+        smartHome = new SmartHome(Arrays.asList(kitchen, bathroom, bedroom, hall), "123");
         // считываем состояние дома из файла
-        event1 = new SensorEvent(SensorEventType.DOOR_CLOSED, "4");
+        event1 = new SensorEvent(EventType.DOOR_CLOSED, "4");
 
     }
 
