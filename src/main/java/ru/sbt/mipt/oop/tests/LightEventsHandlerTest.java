@@ -30,27 +30,47 @@ public class LightEventsHandlerTest {
 
     }
 
-    @Test
-    public void lightEventHandlerTestOn() {
-        new LightEventsHandler(event1, smartHome).handle();
-        for (Room room : smartHome.getRooms()) {
-            for (Light light : room.getLights()) {
-                if (light.getId().equals(event1.getObjectId())) {
-                    assertTrue(light.isOn());
+    public static class LightFinder implements Action {
+
+        private Light foundLight;
+        private final String id;
+
+        public LightFinder(SensorEvent event) {
+            this.id = event.getObjectId();
+        }
+
+        @Override
+        public void doAction(HomeComponent homeComponent) {
+            if (homeComponent instanceof Light) {
+                Light light = (Light) homeComponent;
+                if (light.getId().equals(id)) {
+                    this.foundLight = light;
                 }
             }
+        }
+
+        public Light getFoundLight() {
+            return foundLight;
+        }
+    }
+
+    @Test
+    public void lightEventHandlerTestOn() {
+        new LightEventsHandler(smartHome).handle(event1);
+        LightFinder lightFinder = new LightFinder(event1);
+        smartHome.execute(lightFinder);
+        if (lightFinder.getFoundLight() != null) {
+            assertTrue(lightFinder.getFoundLight().isOn());
         }
     }
 
     @Test
     public void doorEventHandlerTestOff() {
-        new LightEventsHandler(event2, smartHome).handle();
-        for (Room room : smartHome.getRooms()) {
-            for (Light light : room.getLights()) {
-                if (light.getId().equals(event2.getObjectId())) {
-                    assertFalse(light.isOn());
-                }
-            }
+        new LightEventsHandler(smartHome).handle(event2);
+        LightFinder lightFinder = new LightFinder(event1);
+        smartHome.execute(lightFinder);
+        if (lightFinder.getFoundLight() != null) {
+            assertFalse(lightFinder.getFoundLight().isOn());
         }
     }
 }

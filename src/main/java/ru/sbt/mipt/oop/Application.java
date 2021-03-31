@@ -1,9 +1,12 @@
 package ru.sbt.mipt.oop;
 
+import ru.sbt.mipt.oop.events.*;
 import ru.sbt.mipt.oop.smarthomereader.JsonSmartHomeReader;
 import ru.sbt.mipt.oop.smarthomereader.SmartHomeReader;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Application {
 
@@ -12,7 +15,13 @@ public class Application {
         // считываем состояние дома из файла
         SmartHome smartHome = homeReader.readSmartHomeData();
         // начинаем цикл обработки событий
-        new EventHandler(smartHome).eventHandling();
+        EventFactory eventCreator = new SensorEventFactory();
+        List<Handler> handlerList = new ArrayList<Handler>();
+        handlerList.add(new LightEventsHandler(smartHome));
+        handlerList.add(new DoorEventsHandler(smartHome));
+        handlerList.add(new HallDoorEventHandler(smartHome));
+        handlerList.add(new AlarmEventHandler(smartHome));
+        new EventHandler(smartHome, eventCreator, handlerList).eventHandling();
     }
 
 }

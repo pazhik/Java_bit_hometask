@@ -8,17 +8,15 @@ import ru.sbt.mipt.oop.SmartHome;
 import static ru.sbt.mipt.oop.events.SensorEventType.DOOR_CLOSED;
 import static ru.sbt.mipt.oop.events.SensorEventType.DOOR_OPEN;
 
-public class DoorEventsHandler {
+public class DoorEventsHandler implements Handler{
 
     private final SmartHome smartHome;
-    private final SensorEvent event;
 
-    public DoorEventsHandler( SensorEvent event, SmartHome smartHome) {
+    public DoorEventsHandler(SmartHome smartHome) {
         this.smartHome = smartHome;
-        this.event = event;
     }
 
-    public void handle() {
+    public void handle(SensorEvent event) {
         if (event.getType() == DOOR_OPEN || event.getType() == DOOR_CLOSED) {
             Action action = (obj) -> {
                 if (obj instanceof Door) {
@@ -31,31 +29,11 @@ public class DoorEventsHandler {
                         }
                     }
                 }
-                if (obj instanceof Room && event.getType() == DOOR_CLOSED) {
-
-                    if (checkIfCloseHallDoor((Room) obj, event)) {
-                        // если мы получили событие о закрытие двери в холле - это значит, что была закрыта входная дверь.
-                        // в этом случае мы хотим автоматически выключить свет во всем доме (это же умный дом!)
-                        new HallDoorEventHandler((Room) obj, smartHome);
-                    }
-                }
             };
 
             smartHome.execute(action);
         }
 
-    }
-
-    private boolean checkIfCloseHallDoor(Room room, SensorEvent event) {
-
-        for (Door door: room.getDoors()) {
-            if (door.getId().equals(event.getObjectId())) {
-                if (event.getType() == DOOR_CLOSED) {
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 
     private void closeDoor(Door door) {

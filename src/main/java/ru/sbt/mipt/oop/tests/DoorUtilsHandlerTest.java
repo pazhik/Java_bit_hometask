@@ -9,8 +9,7 @@ import ru.sbt.mipt.oop.events.SensorEventType;
 import ru.sbt.mipt.oop.smarthomereader.JsonSmartHomeReader;
 import ru.sbt.mipt.oop.smarthomereader.SmartHomeReader;
 
-import static org.testng.AssertJUnit.assertFalse;
-import static org.testng.AssertJUnit.assertTrue;
+import static org.testng.AssertJUnit.*;
 
 public class DoorUtilsHandlerTest {
     private static SmartHome smartHome;
@@ -30,44 +29,47 @@ public class DoorUtilsHandlerTest {
         event3 = new SensorEvent(sensorEventTypeClose, "4");
     }
 
-    @Test
-    public void doorEventHandlerTestClose() {
-        new DoorEventsHandler(event1, smartHome).handle();
-        for (Room room : smartHome.getRooms()) {
-            for (Door door : room.getDoors()) {
-                if (door.getId().equals(event1.getObjectId())) {
-                    assertFalse(door.isOpen());
+    public static class DoorFinder implements Action {
+
+        private Door foundDoor;
+        private final String id;
+
+        public DoorFinder(SensorEvent event) {
+            this.id = event.getObjectId();
+        }
+
+        @Override
+        public void doAction(HomeComponent homeComponent) {
+            if (homeComponent instanceof Door) {
+                Door door = (Door) homeComponent;
+                if (door.getId().equals(id)) {
+                    this.foundDoor = door;
                 }
             }
+        }
+
+        public Door getFoundDoor() {
+            return foundDoor;
+        }
+    }
+
+    @Test
+    public void doorEventHandlerTestClose() {
+        new DoorEventsHandler(smartHome).handle(event1);
+        DoorFinder doorFinder = new DoorFinder(event1);
+        smartHome.execute(doorFinder);
+        if (doorFinder.getFoundDoor() != null) {
+            assertFalse(doorFinder.getFoundDoor().isOpen());
         }
     }
 
     @Test
     public void doorEventHandlerTestOpen() {
-        new DoorEventsHandler(event2, smartHome).handle();
-        for (Room room : smartHome.getRooms()) {
-            for (Door door : room.getDoors()) {
-                if (door.getId().equals(event2.getObjectId())) {
-                    assertTrue(door.isOpen());
-                }
-            }
-        }
-    }
-
-    @Test
-    public void doorEventHandlerTestCloseHallDoor() {
-        new DoorEventsHandler(event3, smartHome);
-        for (Room room : smartHome.getRooms()) {
-            for (Door door : room.getDoors()) {
-                if (door.getId().equals(event3.getObjectId())) {
-                    assertFalse(door.isOpen());
-                }
-            }
-            if (room.getName().equals("hall")) {
-                for (Light light: room.getLights()) {
-                    assertFalse(light.isOn());
-                }
-            }
+        new DoorEventsHandler(smartHome).handle(event2);
+        DoorFinder doorFinder = new DoorFinder(event2);
+        smartHome.execute(doorFinder);
+        if (doorFinder.getFoundDoor() != null) {
+            assertTrue(doorFinder.foundDoor.isOpen());
         }
     }
 }

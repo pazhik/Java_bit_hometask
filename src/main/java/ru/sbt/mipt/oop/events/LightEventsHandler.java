@@ -7,17 +7,15 @@ import ru.sbt.mipt.oop.SmartHome;
 import static ru.sbt.mipt.oop.events.SensorEventType.LIGHT_OFF;
 import static ru.sbt.mipt.oop.events.SensorEventType.LIGHT_ON;
 
-public class LightEventsHandler {
+public class LightEventsHandler implements Handler {
 
     private final SmartHome smartHome;
-    private final SensorEvent event;
 
-    public LightEventsHandler(SensorEvent event, SmartHome smartHome) {
+    public LightEventsHandler(SmartHome smartHome) {
         this.smartHome = smartHome;
-        this.event = event;
     }
 
-    public void handle() {
+    public void handle(SensorEvent event) {
         if (event.getType() == LIGHT_ON || event.getType() == LIGHT_OFF) {
             Action action = (obj) -> {
                 if (obj instanceof Light) {
