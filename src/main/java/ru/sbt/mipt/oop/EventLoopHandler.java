@@ -5,13 +5,13 @@ import ru.sbt.mipt.oop.handlers.Handler;
 
 import java.util.List;
 
-public class EventHandler {
+public class EventLoopHandler {
 
     protected final SmartHome smartHome;
     private final EventFactory eventCreator;
     private final List<Handler> handlerList;
 
-    public EventHandler(SmartHome smartHome, EventFactory eventCreator, List<Handler> handlers) {
+    public EventLoopHandler(SmartHome smartHome, EventFactory eventCreator, List<Handler> handlers) {
         this.smartHome = smartHome;
         this.eventCreator = eventCreator;
         this.handlerList = handlers;
