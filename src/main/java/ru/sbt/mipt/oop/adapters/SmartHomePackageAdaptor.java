@@ -6,47 +6,24 @@ import ru.sbt.mipt.oop.handlers.Handler;
 import smarthome.events.CCSensorEvent;
 import smarthome.events.EventHandler;
 
-import java.util.List;
+import java.util.Map;
 
 public class SmartHomePackageAdaptor implements EventHandler {
-    private final List<Handler> handlerList;
+    private final Handler handler;
+    private final Map<String, EventType> typeMatch;
 
-    public SmartHomePackageAdaptor(List<Handler> handlerList) {
-        this.handlerList = handlerList;
+    public SmartHomePackageAdaptor(Handler handler, Map<String, EventType> typeMatch) {
+        this.handler = handler;
+        this.typeMatch = typeMatch;
     }
 
     @Override
     public void handleEvent(CCSensorEvent event) {
         SensorEvent sensorEvent = adaptCCToSensorEvent(event);
-        for (Handler handler : handlerList) {
-            handler.handle(sensorEvent);
-        }
+        handler.handle(sensorEvent);
     }
 
     private SensorEvent adaptCCToSensorEvent(CCSensorEvent event) {
-        return new SensorEvent(adaptCCSensorEventType(event.getEventType()), event.getObjectId());
-    }
-
-    private EventType adaptCCSensorEventType(String eventType) {
-        EventType adaptedEventType;
-        switch (eventType) {
-            case ("DoorIsOpen"):
-            case ("DoorIsUnlocked"):
-                adaptedEventType = EventType.DOOR_OPEN;
-                break;
-            case ("DoorIsClosed"):
-            case ("DoorIsLocked"):
-                adaptedEventType = EventType.DOOR_CLOSED;
-                break;
-            case ("LightIsOn"):
-                adaptedEventType = EventType.LIGHT_ON;
-                break;
-            case ("LightIsOff"):
-                adaptedEventType = EventType.LIGHT_OFF;
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + eventType);
-        }
-        return adaptedEventType;
+        return new SensorEvent(typeMatch.get(event.getEventType()), event.getObjectId());
     }
 }

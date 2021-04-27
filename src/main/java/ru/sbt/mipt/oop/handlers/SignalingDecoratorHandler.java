@@ -4,19 +4,23 @@ import ru.sbt.mipt.oop.events.Event;
 import ru.sbt.mipt.oop.events.SignalingEvent;
 import ru.sbt.mipt.oop.signaling.Signaling;
 
+import java.util.List;
+
 public class SignalingDecoratorHandler implements Handler{
-    private Handler handler;
+    private List<Handler> handlers;
     private Signaling signaling;
 
-    public SignalingDecoratorHandler(Handler handler, Signaling signaling) {
-        this.handler = handler;
+    public SignalingDecoratorHandler(List<Handler> handlers, Signaling signaling) {
+        this.handlers = handlers;
         this.signaling = signaling;
     }
 
     @Override
     public void handle(Event event) {
         if(signaling.isDeactivated()) {
-            handler.handle(event);
+            for (Handler handler: handlers) {
+                handler.handle(event);
+            }
         } else if(signaling.isAlarm()) {
             System.out.println("Sending sms");
         } else {
@@ -26,7 +30,9 @@ public class SignalingDecoratorHandler implements Handler{
 
     private void tryDeactivate(Event event) {
         if(event instanceof SignalingEvent) {
-            handler.handle(event);
+            for (Handler handler: handlers) {
+                handler.handle(event);
+            }
         } else {
             signaling.activateAlarm();
             System.out.println("Sending sms");
