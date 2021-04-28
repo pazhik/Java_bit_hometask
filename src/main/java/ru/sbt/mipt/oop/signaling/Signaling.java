@@ -33,6 +33,10 @@ public class Signaling {
         return activationCode.equals(code);
     }
 
+    public boolean isActive() {
+        return (signalingState instanceof ActivatedSignalingState);
+    }
+
     public boolean isDeactivated() {
         return (signalingState instanceof DeactivatedSignalingState);
     }

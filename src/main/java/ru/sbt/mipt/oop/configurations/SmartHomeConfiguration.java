@@ -1,6 +1,7 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.configurations;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import ru.sbt.mipt.oop.SmartHome;
 import ru.sbt.mipt.oop.adapters.SmartHomePackageAdaptor;
 import ru.sbt.mipt.oop.events.EventType;
 import ru.sbt.mipt.oop.handlers.*;
