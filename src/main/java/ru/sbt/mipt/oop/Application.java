@@ -2,6 +2,7 @@ package ru.sbt.mipt.oop;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import ru.sbt.mipt.oop.configurations.SmartHomeConfiguration;
 import smarthome.events.SensorEventsManager;
 
 import java.io.IOException;

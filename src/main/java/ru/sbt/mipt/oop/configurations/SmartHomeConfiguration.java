@@ -1,12 +1,14 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.configurations;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import ru.sbt.mipt.oop.SmartHome;
 import ru.sbt.mipt.oop.adapters.SmartHomePackageAdaptor;
 import ru.sbt.mipt.oop.events.EventType;
 import ru.sbt.mipt.oop.handlers.*;
 import ru.sbt.mipt.oop.smarthomereader.JsonSmartHomeReader;
 import ru.sbt.mipt.oop.smarthomereader.SmartHomeReader;
 import smarthome.events.SensorEventsManager;
+import ru.sbt.mipt.oop.configurations.SmartHomeConfiguration;
 
 import java.util.List;
 import java.util.Map;
