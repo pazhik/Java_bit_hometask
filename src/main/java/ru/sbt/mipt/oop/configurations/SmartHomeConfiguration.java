@@ -8,6 +8,7 @@ import ru.sbt.mipt.oop.handlers.*;
 import ru.sbt.mipt.oop.smarthomereader.JsonSmartHomeReader;
 import ru.sbt.mipt.oop.smarthomereader.SmartHomeReader;
 import smarthome.events.SensorEventsManager;
+import ru.sbt.mipt.oop.configurations.SmartHomeConfiguration;
 
 import java.util.List;
 import java.util.Map;
